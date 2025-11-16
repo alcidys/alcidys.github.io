@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+  /* ---------------- TRANSIÇÃO SUAVE ENTRE TELAS ---------------- */
   document.body.classList.add('is-ready');
 
   const navLinks = document.querySelectorAll('a.js-nav');

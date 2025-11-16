@@ -4,30 +4,111 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Perfil</title>
+
   <link rel="stylesheet" href="../css/reset.css" />
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 
 <body class="page-profile">
-  <main class="container profile card">
-    <div class="avatar">
-      <img src="../img/user.png" alt="Foto de perfil">
-    </div>
+  <main class="container">
+    <section class="card profile-card">
+      <!-- avatar -->
+      <div class="profile-avatar">
+        <img src="../img/user.png" alt="Foto de perfil" />
+      </div>
 
-    <h1 class="profile-name">YOUR NAME</h1>
+      <!-- título -->
+      <h1 class="profile-title">YOUR NAME</h1>
 
-    <label class="visually-hidden" for="nome">Digite seu nome</label>
-    <input class="input-name" id="nome" name="nome" type="text" placeholder="type your name" />
+      <!-- campo de nome -->
+      <label for="nome" class="profile-label">Digite seu nome</label>
+      <input
+        type="text"
+        id="nome"
+        class="profile-input"
+        placeholder="type your name"
+      >
 
-    <p class="profile-sub">choose your vibe:</p>
+      <!-- vibes -->
+      <p class="profile-subtitle">choose your vibe:</p>
 
-    <nav class="vibes">
-      <a class="vibe vibe-explorer" href="#">Explorer</a>
-      <a class="vibe vibe-foodie" href="#">Foodie</a>
-      <a class="vibe vibe-party" href="#">Party Lover</a>
-    </nav>
+      <div class="vibes">
+        <a href="#"
+           class="vibe-link vibe-explorer"
+           data-vibe="explorer">
+           Explorer
+        </a>
 
-    <p class="back-link"><a href="index.html" class="text-link">return to the start</a></p>
+        <a href="#"
+           class="vibe-link vibe-foodie"
+           data-vibe="foodie">
+           Foodie
+        </a>
+
+        <a href="#"
+           class="vibe-link vibe-party"
+           data-vibe="party">
+           Party Lover
+        </a>
+      </div>
+
+      <!-- voltar -->
+      <p class="back-link">
+        <a href="index.html" class="text-link">return to the start</a>
+      </p>
+    </section>
   </main>
+
+  <!-- JS da página de perfil (animação das vibes) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const vibeLinks = document.querySelectorAll('.vibe-link');
+
+      function spawnBurst(vibe, x, y) {
+        const emojisByVibe = {
+          explorer: ['🌿', '⛰️', '🌎', '🌳'],
+          foodie:   ['🍕', '🍣', '🍔', '🍰'],
+          party:    ['🎉', '🎊', '🥳', '🎈']
+        };
+
+        const emojis = emojisByVibe[vibe] || ['✨'];
+
+        for (let i = 0; i < 12; i++) {
+          const span = document.createElement('span');
+          span.className = 'vibe-burst';
+          span.textContent =
+            emojis[Math.floor(Math.random() * emojis.length)];
+
+          // posição inicial perto do clique
+          const offsetX = (Math.random() - 0.5) * 120;
+          const startX  = x + offsetX;
+          const startY  = y + (Math.random() * 40 - 20);
+
+          span.style.left = startX + 'px';
+          span.style.top  = startY + 'px';
+
+          document.body.appendChild(span);
+
+          // remove depois que a animação termina
+          setTimeout(function () {
+            span.remove();
+          }, 950);
+        }
+      }
+
+      vibeLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          event.preventDefault(); // não navegar
+
+          const vibe = link.dataset.vibe;
+          const rect = link.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+
+          spawnBurst(vibe, centerX, centerY);
+        });
+      });
+    });
+  </script>
 </body>
 </html>

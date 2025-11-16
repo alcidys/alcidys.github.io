@@ -1056,3 +1056,97 @@ footer {
   z-index: 1210;
   text-align: center;
 }
+
+/* ======== PERFIL: LAYOUT BÁSICO ======== */
+.page-profile{
+  background: var(--bg); /* ou var(--bg-hero) se quiser o azul */
+}
+
+.profile-card{
+  max-width: 42rem;
+  margin: 4rem auto 6rem;
+  text-align: center;
+}
+
+.profile-avatar{
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-3);
+}
+.profile-avatar img{
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+}
+
+.profile-title{
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: .04em;
+  margin-bottom: var(--space-3);
+}
+
+.profile-label{
+  display: block;
+  margin-bottom: .6rem;
+  font-size: 1.6rem;
+}
+
+.profile-input{
+  width: 100%;
+  padding: 1.2rem 1.6rem;
+  border-radius: .8rem;
+  border: 1px solid #bbb;
+  font-size: 1.6rem;
+  margin-bottom: var(--space-4);
+}
+
+.profile-subtitle{
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-3);
+  font-size: 1.8rem;
+}
+
+/* ======== PERFIL: VIBES ======== */
+.vibes{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  margin-bottom: var(--space-4);
+}
+
+.vibe-link{
+  font-size: 2.4rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.vibe-explorer{ color: #4ea44e; } /* verdinho */
+.vibe-foodie  { color: #e06464; } /* vermelho comida */
+.vibe-party   { color: #578adf; } /* azul festa */
+
+.vibe-link:hover{
+  text-decoration: underline;
+}
+
+/* ======== PARTICULAS DA ANIMAÇÃO ======== */
+.vibe-burst{
+  position: fixed;
+  pointer-events: none;
+  font-size: 2.4rem;
+  animation: vibe-float 900ms ease-out forwards;
+  z-index: 999;
+}
+
+@keyframes vibe-float{
+  0%{
+    transform: translate(-50%, 0) scale(1);
+    opacity: 1;
+  }
+  100%{
+    transform: translate(-50%, -80px) scale(.8);
+    opacity: 0;
+  }
+}
