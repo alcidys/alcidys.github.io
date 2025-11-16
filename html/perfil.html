@@ -17,10 +17,10 @@
         <img src="../img/user.png" alt="Foto de perfil" />
       </div>
 
-      
-      <h1 class="profile-title">YOUR NAME</h1>
+      <!-- TÍTULO COM O NOME (vai ser atualizado automaticamente) -->
+      <h1 class="profile-title" id="title-name">YOUR NAME</h1>
 
-      
+      <!-- INPUT DE NOME -->
       <label for="nome" class="profile-label">Digite seu nome</label>
       <input
         type="text"
@@ -29,39 +29,61 @@
         placeholder="type your name"
       >
 
-      
+      <button id="save-name-btn" class="btn-save-name">
+        Save name
+      </button>
+
       <p class="profile-subtitle">choose your vibe:</p>
 
+      <!-- VIBES -->
       <div class="vibes">
-        <a href="#"
-           class="vibe-link vibe-explorer"
-           data-vibe="explorer">
-           Explorer
+        <a href="#" class="vibe-link vibe-explorer" data-vibe="explorer">
+          Explorer
         </a>
 
-        <a href="#"
-           class="vibe-link vibe-foodie"
-           data-vibe="foodie">
-           Foodie
+        <a href="#" class="vibe-link vibe-foodie" data-vibe="foodie">
+          Foodie
         </a>
 
-        <a href="#"
-           class="vibe-link vibe-party"
-           data-vibe="party">
-           Party Lover
+        <a href="#" class="vibe-link vibe-party" data-vibe="party">
+          Party Lover
         </a>
       </div>
 
-      
       <p class="back-link">
-        <a href="index.html" class="text-link">return to the start</a>
+        <a href="index.html" class="text-link js-nav">return to the start</a>
       </p>
+
     </section>
   </main>
 
-  
+  <!-- ===================== JAVA SCRIPT ===================== -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+
+      /* ----------- 1. CARREGAR NOME SALVO ----------- */
+      const inputNome = document.querySelector('#nome');
+      const titleName = document.querySelector('#title-name');
+      const saveBtn   = document.querySelector('#save-name-btn');
+
+      const nomeSalvo = localStorage.getItem('userName');
+      if (nomeSalvo) {
+        inputNome.value = nomeSalvo;
+        titleName.textContent = nomeSalvo.toUpperCase();
+      }
+
+
+      /* ----------- 2. SALVAR NOME ----------- */
+      saveBtn.addEventListener('click', function () {
+        const nome = inputNome.value.trim();
+        if (nome.length === 0) return;
+
+        localStorage.setItem('userName', nome);
+        titleName.textContent = nome.toUpperCase();
+      });
+
+
+      /* ----------- 3. ANIMAÇÃO + SALVAMENTO DA VIBE ----------- */
       const vibeLinks = document.querySelectorAll('.vibe-link');
 
       function spawnBurst(vibe, x, y) {
@@ -76,39 +98,38 @@
         for (let i = 0; i < 12; i++) {
           const span = document.createElement('span');
           span.className = 'vibe-burst';
-          span.textContent =
-            emojis[Math.floor(Math.random() * emojis.length)];
+          span.textContent = emojis[Math.floor(Math.random()*emojis.length)];
 
-          
           const offsetX = (Math.random() - 0.5) * 120;
-          const startX  = x + offsetX;
-          const startY  = y + (Math.random() * 40 - 20);
+          const startX = x + offsetX;
+          const startY = y + (Math.random()*40 - 20);
 
           span.style.left = startX + 'px';
           span.style.top  = startY + 'px';
 
           document.body.appendChild(span);
 
-          
-          setTimeout(function () {
-            span.remove();
-          }, 950);
+          setTimeout(() => span.remove(), 900);
         }
       }
 
-      vibeLinks.forEach(function (link) {
+      vibeLinks.forEach(link => {
         link.addEventListener('click', function (event) {
-          event.preventDefault(); 
+          event.preventDefault();
 
           const vibe = link.dataset.vibe;
-          const rect = link.getBoundingClientRect();
-          const centerX = rect.left + rect.width / 2;
-          const centerY = rect.top + rect.height / 2;
+          localStorage.setItem('userVibe', vibe);
 
-          spawnBurst(vibe, centerX, centerY);
+          const rect = link.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+
+          spawnBurst(vibe, cx, cy);
         });
       });
+
     });
   </script>
+
 </body>
 </html>
