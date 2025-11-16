@@ -15,7 +15,13 @@
       <p class="converter-currency">R$</p>
 
       <label class="visually-hidden" for="in-brl">Valor em reais</label>
-      <input id="in-brl" class="conv-input" type="text" placeholder="">
+      <input
+        id="in-brl"
+        class="conv-input"
+        type="text"
+        inputmode="decimal"
+        placeholder="Digite o valor em reais"
+      >
 
       <div class="swap">
         <span class="arrow left"></span>
@@ -23,12 +29,57 @@
         <span class="arrow right"></span>
       </div>
 
-      <label class="visually-hidden" for="out">Valor convertido</label>
-      <input id="out" class="conv-input" type="text" placeholder="">
+      <label class="visually-hidden" for="out">Valor convertido em dólares</label>
+      <input
+        id="out"
+        class="conv-input"
+        type="text"
+        placeholder="US$ 0,00"
+        readonly
+      >
 
-      <!-- botão de voltar -->
-      <p class="back-link"><a href="index.html" class="text-link">return to the start</a></p>
+      <p class="back-link">
+        <a href="index.html" class="text-link js-nav">return to the start</a>
+      </p>
     </section>
   </main>
+
+  <!-- se quiser manter transição suave, deixa esse script externo -->
+  <script src="../js/script.js"></script>
+
+  <!-- CONVERSOR R$ -> US$ (garantido que roda) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const inputBRL = document.getElementById('in-brl');
+      const inputOUT = document.getElementById('out');
+
+      if (!inputBRL || !inputOUT) return;
+
+      const RATE_BRL_USD = 0.20; // 1 real = 0,20 dólar
+
+      function convertBRLtoUSD() {
+        // pega o que o usuário digitou, troca vírgula por ponto
+        const raw = inputBRL.value.replace(',', '.').trim();
+        const value = parseFloat(raw);
+
+        // se não for número, mostra 0
+        if (isNaN(value)) {
+          inputOUT.value = 'US$ 0,00';
+          return;
+        }
+
+        const usd = value * RATE_BRL_USD;
+
+        // formata como "US$ 12,34"
+        const formatted = 'US$ ' + usd.toFixed(2).replace('.', ',');
+
+        inputOUT.value = formatted;
+      }
+
+      // converte enquanto digita e ao sair do campo
+      inputBRL.addEventListener('input', convertBRLtoUSD);
+      inputBRL.addEventListener('blur', convertBRLtoUSD);
+    });
+  </script>
 </body>
 </html>
