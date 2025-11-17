@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const inputNome = document.querySelector('#nome');
 
   if (formNome && inputNome) {
-    // preencher o campo se já tiver salvo
+    
     const nomeSalvo = localStorage.getItem('userName');
     if (nomeSalvo) {
       inputNome.value = nomeSalvo;
