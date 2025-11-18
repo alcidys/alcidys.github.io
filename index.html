@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guia - Início</title>
+
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  
+</head>
+
+<body class="page-home">
+  <header class="site-header hero">
+    <div class="container header-inner hero-inner">
+      <h1 class="site-title hero-title">WELCOME TO BRAZIL</h1>
+      <p class="site-sub hero-sub">where are you?</p>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <div class="container card hero-card">
+      
+      <a href="tela_sao_paulo.html"
+         class="brasil-link js-nav"
+         aria-label="Ir para São Paulo">
+        <img src="../img/brasil.png" alt="Mapa do Brasil" />
+      </a>
+
+      
+      <form action="tela_sao_paulo.html" method="get" class="stack" style="display:none;">
+        <label for="estado">Cidade</label>
+        <select id="estado" name="estado">
+          <option value="sp">São Paulo</option>
+        </select>
+        <button type="submit" class="btn">Confirmar</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner footer-3col">
+      <a class="icon-link js-nav" href="popup_conversor.html" aria-label="Conversor">
+        <img src="../img/money.png" alt="" aria-hidden="true" />
+      </a>
+
+      <a class="icon-link js-nav" href="perfil.html" aria-label="Perfil">
+        <img src="../img/user.png" alt="" aria-hidden="true" />
+      </a>
+    </div>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>
